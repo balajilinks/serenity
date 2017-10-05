@@ -26,15 +26,14 @@ import static net.serenitybdd.screenplay.questions.WebElementQuestion.the;
  */
 public class SearchSteps {
 
+    @Steps
+    SearchUser user;
+    MainSearchPage mainSearchPage;
+
     @Before
     public void before() {
         OnStage.setTheStage(new OnlineCast());
     }
-
-    @Steps
-    SearchUser user;
-
-    MainSearchPage mainSearchPage;
 
     @Given("^John is viewing the Etsy landing page$")
     public void goto_landing_page() {
@@ -51,6 +50,18 @@ public class SearchSteps {
         user.search_from_input_box();
     }
 
+    @When("^he selects a category from drop down menu$")
+    public void select_dropdown_menu() {
+        user.select_menu();
+
+    }
+
+    @When("^he selects a product from icons$")
+    public void select_random_product() {
+        user.select_icon_product();
+    }
+
+
     @When("^he searches for a product from the input box \\(screenplay\\)$")
     public void search_from_input_box_screenplay() {
         theActorInTheSpotlight().attemptsTo(SearchFor.randomText());
@@ -60,6 +71,21 @@ public class SearchSteps {
     public void verify_search_result() {
         user.verify_result_for_top_categories();
         user.verify_result_for_all_categories();
+    }
+
+    @Then("^the category items should be displayed$")
+    public void verify_search_heading_result() {
+        user.verify_result_for_menu();
+    }
+
+    @Then("^the product should be displayed$")
+    public void verify_product_name() {
+        user.verify_product_name();
+    }
+
+    @Then("^all links are working fine$")
+    public void check_all_links() {
+        user.verify_all_links();
     }
 
     @Then("^the result should be displayed \\(screenplay\\)$")

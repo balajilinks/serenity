@@ -21,8 +21,21 @@ import static net.serenitybdd.screenplay.questions.WebElementQuestion.the;
  */
 public class SearchFor implements Task {
 
-    private String searchText;
     private final static List<String> textList = Arrays.asList("apple", "orange", "banana", "kiwi");
+    private String searchText;
+
+    public SearchFor(String searchText) {
+        this.searchText = searchText;
+    }
+
+    public static SearchFor randomText() {
+        String selectedText = textList.get(new Random().nextInt(textList.size()));
+        return Instrumented.instanceOf(SearchFor.class).withProperties(selectedText);
+    }
+
+    public static SearchFor textCalled(String searchText) {
+        return Instrumented.instanceOf(SearchFor.class).withProperties(searchText);
+    }
 
     @Step("{0} enters search text #searchText")
     public <T extends Actor> void performAs(T theUser) {
@@ -35,19 +48,6 @@ public class SearchFor implements Task {
                 Click.on(SearchTarget.INPUT_BOX_BUTTON)
         );
         Serenity.setSessionVariable(SessionVar.SEARCH_TEXT).to(searchText);
-    }
-
-    public static SearchFor randomText() {
-        String selectedText = textList.get(new Random().nextInt(textList.size()));
-        return Instrumented.instanceOf(SearchFor.class).withProperties(selectedText);
-    }
-
-    public static SearchFor textCalled(String searchText) {
-        return Instrumented.instanceOf(SearchFor.class).withProperties(searchText);
-    }
-
-    public SearchFor(String searchText) {
-        this.searchText = searchText;
     }
 
 }

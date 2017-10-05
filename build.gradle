@@ -20,7 +20,9 @@ apply plugin: "net.serenity-bdd.aggregator"
 println "project.serenity.outputDirectory= ${project.serenity.outputDirectory}"
 
 dependencies {
-    def SERENITY_VERSION = "1.2.1-rc.5"
+//    def SERENITY_VERSION = "1.2.1-rc.5"
+//    def SERENITY_VERSION = "1.5.4-rc.2"
+    def SERENITY_VERSION = "1.6.3"
 
     testCompile 'net.serenity-bdd:serenity-core:' + SERENITY_VERSION
     testCompile 'net.serenity-bdd:serenity-rest-assured:' + SERENITY_VERSION
