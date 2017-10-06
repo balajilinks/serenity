@@ -9,7 +9,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("net.serenity-bdd:serenity-gradle-plugin:1.1.40")
+        classpath("net.serenity-bdd:serenity-gradle-plugin:1.6.0")
     }
 }
 
@@ -22,11 +22,11 @@ println "project.serenity.outputDirectory= ${project.serenity.outputDirectory}"
 dependencies {
 //    def SERENITY_VERSION = "1.2.1-rc.5"
 //    def SERENITY_VERSION = "1.5.4-rc.2"
-    def SERENITY_VERSION = "1.6.3"
+    def SERENITY_VERSION = "1.6.0"
 
     testCompile 'net.serenity-bdd:serenity-core:' + SERENITY_VERSION
     testCompile 'net.serenity-bdd:serenity-rest-assured:' + SERENITY_VERSION
-    testCompile 'net.serenity-bdd:serenity-cucumber:1.1.13'
+    testCompile 'net.serenity-bdd:serenity-cucumber:1.5.9'
     testCompile 'org.assertj:assertj-core:3.1.0'
     testCompile 'org.slf4j:slf4j-simple:1.7.12'
     testCompile 'com.googlecode.lambdaj:lambdaj:2.3.3'
