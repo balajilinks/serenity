@@ -38,6 +38,7 @@ dependencies {
 }
 
 test {
+    maxParallelForks = 2
     testLogging {
         showStandardStreams = true
     }
