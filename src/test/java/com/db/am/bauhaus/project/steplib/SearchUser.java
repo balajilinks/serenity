@@ -18,8 +18,7 @@ public class SearchUser extends ScenarioSteps {
     MainSearchPage mainSearchPage;
 
     String searchText = "craft";
-//    String searchMenu = "Jewellery";
-    String searchMenu = "Wedding";
+    String searchMenu = "Jewellery";
     String randomProduct = "";
 
     @Step
@@ -33,7 +32,7 @@ public class SearchUser extends ScenarioSteps {
     }
 
     @Step
-    public void select_icon_product() {
+    public void select_product_icon() {
         randomProduct = mainSearchPage.selectProductIcon();
     }
 
@@ -53,7 +52,7 @@ public class SearchUser extends ScenarioSteps {
 
     @Step
     public void verify_product_name() {
-        assertThat(mainSearchPage.getProductDesc().toLowerCase(), containsString(randomProduct.toLowerCase()));
+        assertThat(mainSearchPage.getProductDesc().toLowerCase(), containsString(randomProduct.toLowerCase().substring(1,20)));
     }
 
     @Step

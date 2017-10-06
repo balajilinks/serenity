@@ -6,6 +6,7 @@ import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,6 @@ public class MainSearchPage extends PageObject {
     @FindBy(css = "div.placeholder-content")
     WebElementFacade randomProduct;
 
-
     public MainSearchPage(WebDriver driver) {
         super(driver);
     }
@@ -35,16 +35,15 @@ public class MainSearchPage extends PageObject {
         searchButton.click();
     }
 
-
     // Jewellery --> All Jewellery
     public void selectMenuItem(String strMenuName) {
-        find(By.xpath("//span[contains(text(),'" + strMenuName + "')]")).click();
-        find(org.openqa.selenium.By.partialLinkText("ALL")).click();
+        find(By.xpath(".//*[contains(text(),'" + strMenuName + "')][@role='menuitem']")).click();
+        find(org.openqa.selenium.By.partialLinkText("ALL")).waitUntilPresent().click();
     }
 
 
     public String selectProductIcon() {
-        String strDefinition = randomProduct.findBy("img").getAttribute("alt");
+        String strDefinition = randomProduct.waitUntilVisible().findBy("img").getAttribute("alt");
         randomProduct.click();
         return strDefinition;
     }
@@ -68,7 +67,6 @@ public class MainSearchPage extends PageObject {
         // Add if required
 //        elementList.addAll(findAll(By.tagName("img")));
         List<String> finalList = new ArrayList();
-
         for (WebElementFacade element : elementList) {
             if (element.getAttribute("href") != null) {
                 System.out.println(element.getAttribute("href"));

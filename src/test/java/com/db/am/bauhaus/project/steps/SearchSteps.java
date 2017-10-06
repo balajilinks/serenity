@@ -53,12 +53,11 @@ public class SearchSteps {
     @When("^he selects a category from drop down menu$")
     public void select_dropdown_menu() {
         user.select_menu();
-
     }
 
     @When("^he selects a product from icons$")
     public void select_random_product() {
-        user.select_icon_product();
+        user.select_product_icon();
     }
 
 
