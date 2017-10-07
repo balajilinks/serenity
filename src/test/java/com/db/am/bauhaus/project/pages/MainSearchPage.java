@@ -76,7 +76,6 @@ public class MainSearchPage extends PageObject {
         List<String> finalList = new ArrayList();
         for (WebElementFacade element : elementList) {
             if (element.getAttribute("href") != null) {
-                System.out.println(element.getAttribute("href"));
                 finalList.add(element.getAttribute("href"));
             }
         }
