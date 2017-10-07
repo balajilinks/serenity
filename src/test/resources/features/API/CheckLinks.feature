@@ -1,7 +1,7 @@
 Feature: Links Feature
 
-As a user
-I would like to navigate to product page
+As a TESTER
+I would like to navigate from product page links
 Through various channels
 
  @ui @pageobject

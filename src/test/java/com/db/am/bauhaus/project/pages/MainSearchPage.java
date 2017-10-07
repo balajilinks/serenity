@@ -35,10 +35,17 @@ public class MainSearchPage extends PageObject {
         searchButton.click();
     }
 
-    // Jewellery --> All Jewellery
     public void selectMenuItem(String strMenuName) {
         find(By.xpath(".//*[contains(text(),'" + strMenuName + "')][@role='menuitem']")).click();
-        find(org.openqa.selenium.By.partialLinkText("ALL")).waitUntilPresent().click();
+        if(find(By.partialLinkText("ALL")).isPresent()){
+            find(By.partialLinkText("ALL")).click();
+        }else {
+             if( findAll(org.openqa.selenium.By.xpath("//ul[@role='menu']/div/a")).size() != 0 ) {
+                 find(org.openqa.selenium.By.xpath("//ul[@role='menu']/div/a")).click();
+             }else{
+                 assert false;
+             }
+        }
     }
 
 
