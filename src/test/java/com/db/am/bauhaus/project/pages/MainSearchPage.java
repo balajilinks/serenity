@@ -7,6 +7,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindAll;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,10 @@ public class MainSearchPage extends PageObject {
     @FindBy(css = "div.placeholder-content")
     WebElementFacade randomProduct;
 
+    @FindBy(css = "div.as-suggestion.new-web-ui")
+    WebElementFacade searchSuggestions;
+
+
     public MainSearchPage(WebDriver driver) {
         super(driver);
     }
@@ -35,8 +40,19 @@ public class MainSearchPage extends PageObject {
         searchButton.click();
     }
 
+    public String searchFromInputBoxSuggestions(String searchText) {
+        inputBox.waitUntilPresent().sendKeys(searchText);
+        String suggestion = searchSuggestions.waitUntilPresent().getText();
+        searchSuggestions.click();
+        return suggestion;
+    }
+
     public void selectMenuItem(String strMenuName) {
-        find(By.xpath(".//*[contains(text(),'" + strMenuName + "')][@role='menuitem']")).click();
+
+        WebElementFacade web_Element_To_Be_Hovered = find(By.xpath(".//*[contains(text(),'" + strMenuName + "')][@role='menuitem']"));
+        Actions builder = new Actions(getDriver());
+        builder.moveToElement(web_Element_To_Be_Hovered).build().perform();
+        find(By.xpath(".//*[contains(text(),'" + strMenuName + "')][@role='menuitem']")).waitUntilClickable().click();
         if(find(By.partialLinkText("ALL")).isPresent()){
             find(By.partialLinkText("ALL")).click();
         }else {
@@ -47,7 +63,6 @@ public class MainSearchPage extends PageObject {
              }
         }
     }
-
 
     public String selectProductIcon() {
         String strDefinition = randomProduct.waitUntilVisible().findBy("img").getAttribute("alt");
@@ -71,7 +86,6 @@ public class MainSearchPage extends PageObject {
         List<WebElementFacade> elementList = new ArrayList();
 
         elementList = findAll(By.tagName("a"));
-        // Add if required
 //        elementList.addAll(findAll(By.tagName("img")));
         List<String> finalList = new ArrayList();
         for (WebElementFacade element : elementList) {

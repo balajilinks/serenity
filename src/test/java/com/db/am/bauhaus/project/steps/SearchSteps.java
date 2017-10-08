@@ -49,6 +49,10 @@ public class SearchSteps {
     public void search_from_input_box() {
         user.search_from_input_box();
     }
+    @When("^he searches for a product from the suggestions$")
+    public void search_from_input_box_suggestions() {
+        user.search_from_input_box_suggestions();
+    }
 
     @When("^he selects a category from drop down menu$")
     public void select_dropdown_menu() {

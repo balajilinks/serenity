@@ -18,12 +18,18 @@ public class SearchUser extends ScenarioSteps {
     MainSearchPage mainSearchPage;
 
     String searchText = "craft";
+    String searchSuggestion = "apple";
     String searchMenu = "Jewellery";
     String randomProduct = "";
 
     @Step
     public void search_from_input_box() {
         mainSearchPage.searchFromInputBox(searchText);
+    }
+
+    @Step
+    public void search_from_input_box_suggestions() {
+        searchText = mainSearchPage.searchFromInputBoxSuggestions(searchSuggestion);
     }
 
     @Step
@@ -43,7 +49,7 @@ public class SearchUser extends ScenarioSteps {
         // Since it is production site, reduce the number of Hits
         List<String> sampleLinks = finalList.subList(1, 10);
         for (String item : sampleLinks) {
-            System.out.println("Checking Link " + item + " " + SerenityRest.when().get(item).then().extract().statusCode());
+            System.out.println("Checking Link " + item);
             assert SerenityRest.when().get(item).then().extract().statusCode() == 200;
         }
 
