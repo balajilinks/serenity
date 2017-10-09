@@ -49,14 +49,10 @@ public class SearchSteps {
     public void search_from_input_box() {
         user.search_from_input_box();
     }
+
     @When("^he searches for a product from the suggestions$")
     public void search_from_input_box_suggestions() {
         user.search_from_input_box_suggestions();
-    }
-
-    @When("^he selects a category from drop down menu$")
-    public void select_dropdown_menu() {
-        user.select_menu();
     }
 
     @When("^he selects a product from icons$")
@@ -78,7 +74,7 @@ public class SearchSteps {
 
     @Then("^the category items should be displayed$")
     public void verify_search_heading_result() {
-        user.verify_result_for_menu();
+        user.verify_result_categories();
     }
 
     @Then("^the product should be displayed$")
@@ -98,5 +94,10 @@ public class SearchSteps {
                 seeThat("the top categories header ", the(SearchTarget.TOP_CATEGORIES_HEADER), containsText(searchText)),
                 seeThat("the all categories header ", the(SearchTarget.ALL_CATEGORIES_HEADER), containsText(searchText))
         );
+    }
+
+    @When("^he selects a category$")
+    public void heSelectsACategory() throws Throwable {
+        user.select_category();
     }
 }

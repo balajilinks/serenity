@@ -19,7 +19,7 @@ public class SearchUser extends ScenarioSteps {
 
     String searchText = "craft";
     String searchSuggestion = "apple";
-    String searchMenu = "Jewellery";
+    String searchCategory = "Jewellery";
     String randomProduct = "";
 
     @Step
@@ -33,8 +33,8 @@ public class SearchUser extends ScenarioSteps {
     }
 
     @Step
-    public void select_menu() {
-        mainSearchPage.selectMenuItem(searchMenu);
+    public void select_category() {
+        searchCategory = mainSearchPage.selectCategory();
     }
 
     @Step
@@ -52,13 +52,12 @@ public class SearchUser extends ScenarioSteps {
             System.out.println("Checking Link " + item);
             assert SerenityRest.when().get(item).then().extract().statusCode() == 200;
         }
-
     }
 
 
     @Step
     public void verify_product_name() {
-        assertThat(mainSearchPage.getProductDesc().toLowerCase(), containsString(randomProduct.toLowerCase().substring(1,20)));
+        assertThat(mainSearchPage.getProductDesc().toLowerCase(), containsString(randomProduct.toLowerCase().substring(1, 20)));
     }
 
     @Step
@@ -67,8 +66,8 @@ public class SearchUser extends ScenarioSteps {
     }
 
     @Step
-    public void verify_result_for_menu() {
-        assertThat(mainSearchPage.getMenuHeader().toLowerCase(), containsString(searchMenu.toLowerCase()));
+    public void verify_result_categories() {
+        assertThat(mainSearchPage.getMenuHeader().toLowerCase(), containsString(searchCategory.toLowerCase()));
     }
 
     @Step

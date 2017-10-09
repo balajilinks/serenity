@@ -6,8 +6,6 @@ import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindAll;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +28,8 @@ public class MainSearchPage extends PageObject {
     @FindBy(css = "div.as-suggestion.new-web-ui")
     WebElementFacade searchSuggestions;
 
+    @FindBy(css = "div.block-grid-item")
+    WebElementFacade categoryMenu;
 
     public MainSearchPage(WebDriver driver) {
         super(driver);
@@ -47,21 +47,10 @@ public class MainSearchPage extends PageObject {
         return suggestion;
     }
 
-    public void selectMenuItem(String strMenuName) {
-
-        WebElementFacade web_Element_To_Be_Hovered = find(By.xpath(".//*[contains(text(),'" + strMenuName + "')][@role='menuitem']"));
-        Actions builder = new Actions(getDriver());
-        builder.moveToElement(web_Element_To_Be_Hovered).build().perform();
-        find(By.xpath(".//*[contains(text(),'" + strMenuName + "')][@role='menuitem']")).waitUntilClickable().click();
-        if(find(By.partialLinkText("ALL")).isPresent()){
-            find(By.partialLinkText("ALL")).click();
-        }else {
-             if( findAll(org.openqa.selenium.By.xpath("//ul[@role='menu']/div/a")).size() != 0 ) {
-                 find(org.openqa.selenium.By.xpath("//ul[@role='menu']/div/a")).click();
-             }else{
-                 assert false;
-             }
-        }
+    public String selectCategory() {
+        String categoryName = categoryMenu.waitUntilPresent().getText();
+        categoryMenu.click();
+        return categoryName;
     }
 
     public String selectProductIcon() {
@@ -79,7 +68,7 @@ public class MainSearchPage extends PageObject {
     }
 
     public String getProductDesc() {
-        if(find(By.cssSelector("span[itemprop='name']")).isPresent()) {
+        if (find(By.cssSelector("span[itemprop='name']")).isPresent()) {
             return find(By.cssSelector("span[itemprop='name']")).getText();
         }
         return find(By.cssSelector("h2.text-gray-darker")).waitUntilPresent().getText();
@@ -87,7 +76,6 @@ public class MainSearchPage extends PageObject {
 
     public List getAllLinks() {
         List<WebElementFacade> elementList = new ArrayList();
-
         elementList = findAll(By.tagName("a"));
 //        elementList.addAll(findAll(By.tagName("img")));
         List<String> finalList = new ArrayList();
