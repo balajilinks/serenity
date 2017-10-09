@@ -79,7 +79,10 @@ public class MainSearchPage extends PageObject {
     }
 
     public String getProductDesc() {
-        return find(By.cssSelector("span[itemprop='name']")).getText();
+        if(find(By.cssSelector("span[itemprop='name']")).isPresent()) {
+            return find(By.cssSelector("span[itemprop='name']")).getText();
+        }
+        return find(By.cssSelector("h2.text-gray-darker")).waitUntilPresent().getText();
     }
 
     public List getAllLinks() {
