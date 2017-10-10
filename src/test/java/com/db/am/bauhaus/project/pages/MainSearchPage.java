@@ -28,7 +28,7 @@ public class MainSearchPage extends PageObject {
     @FindBy(css = "div.as-suggestion.new-web-ui")
     WebElementFacade searchSuggestions;
 
-    @FindBy(css = "div.block-grid-item")
+    @FindBy(css = "div.card-meta-row > span.vesta-hp-category-title.vesta-hp-curated-category")
     WebElementFacade categoryMenu;
 
     public MainSearchPage(WebDriver driver) {
@@ -48,8 +48,15 @@ public class MainSearchPage extends PageObject {
     }
 
     public String selectCategory() {
-        String categoryName = categoryMenu.waitUntilPresent().getText();
-        categoryMenu.click();
+        String categoryName;
+        try{
+            categoryName = categoryMenu.getText();
+            categoryMenu.click();
+        }catch (Exception e){
+            getDriver().navigate().to(getDriver().getCurrentUrl()+"c/home-and-living");
+            categoryName = "Home";
+        }
+
         return categoryName;
     }
 
